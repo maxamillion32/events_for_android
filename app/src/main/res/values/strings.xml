@@ -11,4 +11,9 @@
     <string name="drawer_item_submit_event">Submit Event</string>
     <string name="drawer_item_edit_profile">Edit Profile</string>
 
+    <string name="hello_browse_fragment">Hello browse fragment</string>
+    <string name="hello_locate_fragment">Hello locate fragment</string>
+    <string name="hello_edit_fragment">Hello edit fragment</string>
+    <string name="hello_submit_fragment">Hello submit fragment</string>
+
 </resources>

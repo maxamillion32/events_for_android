@@ -1,6 +1,9 @@
 package com.watsonlogic.eventsapp;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.graphics.Color;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private void setToolbar(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setDrawer(){
@@ -106,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
         item3 = (SecondaryDrawerItem) new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_submit_event)
                 .withIcon(GoogleMaterial.Icon.gmd_add_circle)
-                .withIdentifier(3);
+                .withIdentifier(2);
 
         item4 = (SecondaryDrawerItem) new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_edit_profile)
                 .withIcon(GoogleMaterial.Icon.gmd_account_circle)
-                .withIdentifier(2);
+                .withIdentifier(3);
 
     }
 
@@ -131,18 +135,25 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
+                        FragmentManager m = getSupportFragmentManager();
+                        FragmentTransaction t = m.beginTransaction();
+                        Fragment f = new Fragment();
                         switch (position) {
-                            case 0: {
+                            case 1:
+                                f = new BrowseFragment();
                                 break;
-                            }
-                            case 1: {
+                            case 2:
+                                f = new LocateFragment();
                                 break;
-                            }
-                            case 2: {
+                            case 4:
+                                f = new SubmitFragment();
                                 break;
-                            }
+                            case 5:
+                                f = new EditFragment();
+                                break;
                         }
+                        t.replace(R.id.frame_fragments, f);
+                        t.commit();
                         return true;
                     }
                 })
