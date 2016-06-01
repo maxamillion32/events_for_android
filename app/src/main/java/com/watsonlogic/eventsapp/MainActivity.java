@@ -1,6 +1,8 @@
 package com.watsonlogic.eventsapp;
 
 import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.graphics.Color;
@@ -13,8 +15,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -64,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        //collapsingToolbarLayout.setTitle(getString(R.string.drawer_item_collapsing_toolbar_drawer));
+        collapsingToolbarLayout.setTitle("Latest Events");
     }
 
     private void setDrawer(){
@@ -123,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     private void buildDrawer(){
         drawer = new DrawerBuilder()
                 .withActivity(this)
+                .withFullscreen(true)
                 .withTranslucentStatusBar(true)
                 .withToolbar(toolbar)
                 .withAccountHeader(accountHeader)
@@ -147,8 +157,8 @@ public class MainActivity extends AppCompatActivity {
                                 f = new LocateFragment();
                                 break;
                             case 4:
-                                //f = new SubmitFragment();
-                                startActivity(new Intent(MainActivity.this, SubmitActivity.class));
+                                f = new SubmitFragment();
+                                //startActivity(new Intent(MainActivity.this, SubmitActivity.class));
                                 break;
                             case 5:
                                 f = new EditFragment();
@@ -160,6 +170,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+
+        loadBackdrop();
+    }
+
+    private void loadBackdrop() {
+        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
+        Glide.with(this).load("https://unsplash.it/600/300/?random").centerCrop().into(imageView);
     }
 
     private void setSelectedDrawerItem(){
