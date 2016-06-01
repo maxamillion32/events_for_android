@@ -1,5 +1,6 @@
 package com.watsonlogic.eventsapp;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.graphics.Color;
@@ -146,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
                                 f = new LocateFragment();
                                 break;
                             case 4:
-                                f = new SubmitFragment();
+                                //f = new SubmitFragment();
+                                startActivity(new Intent(MainActivity.this, SubmitActivity.class));
                                 break;
                             case 5:
                                 f = new EditFragment();
@@ -154,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.replace(R.id.frame_fragments, f);
                         t.commit();
-                        return true;
+                        return false; //close drawer onclick
                     }
                 })
                 .build();

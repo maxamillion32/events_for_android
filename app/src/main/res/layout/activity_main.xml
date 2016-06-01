@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@mipmap/ic_create"
+        android:src="@mipmap/ic_add_a_photo"
         app:layout_anchor="@id/frame_fragments"
         app:layout_anchorGravity="bottom|right|end" />
 
