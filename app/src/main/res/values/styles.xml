@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
         <item name="android:actionMenuTextColor">@color/ActionmenuTextColor</item>
+        <item name="colorAccent">@color/FloatingActionButtonColor</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

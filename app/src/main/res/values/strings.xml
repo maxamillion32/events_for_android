@@ -6,9 +6,9 @@
 
     <string name="toolbar_upcoming_events">Upcoming Events</string>
 
-    <string name="drawer_item_upcoming_events">Upcoming Events Near Me</string>
+    <string name="drawer_item_browse_events">Browse Events Near Me</string>
     <string name="drawer_item_locate_events">Locate Events</string>
-    <string name="drawer_item_profile">My Profile</string>
-    <string name="drawer_item_settings">Preferences</string>
+    <string name="drawer_item_submit_event">Submit Event</string>
+    <string name="drawer_item_edit_profile">Edit Profile</string>
 
 </resources>

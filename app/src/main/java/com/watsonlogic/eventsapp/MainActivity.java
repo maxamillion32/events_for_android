@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     new ProfileDrawerItem()
                             .withName("John Doe")
                             .withEmail("johndoe@gmail.com")
-                            .withIcon(ContextCompat.getDrawable(this,R.drawable.profile))
+                            .withIcon(ContextCompat.getDrawable(this, R.drawable.profile))
             )
             .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                 @Override
@@ -89,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDrawerItems(){
         item1 = new PrimaryDrawerItem()
-                .withName(R.string.drawer_item_upcoming_events)
+                .withName(R.string.drawer_item_browse_events)
+                .withIcon(GoogleMaterial.Icon.gmd_event)
                 .withBadge("19")
                 .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700))
                 .withIdentifier(0);
@@ -97,28 +99,34 @@ public class MainActivity extends AppCompatActivity {
 
         item2 = (SecondaryDrawerItem) new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_locate_events)
+                .withIcon(GoogleMaterial.Icon.gmd_my_location)
                 .withIdentifier(1);
         //Log.d(TAG, String.valueOf(item2.getIdentifier()));
 
         item3 = (SecondaryDrawerItem) new SecondaryDrawerItem()
-                .withName(R.string.drawer_item_profile)
-                .withIdentifier(2);
+                .withName(R.string.drawer_item_submit_event)
+                .withIcon(GoogleMaterial.Icon.gmd_add_circle)
+                .withIdentifier(3);
 
         item4 = (SecondaryDrawerItem) new SecondaryDrawerItem()
-                .withName(R.string.drawer_item_settings)
-                .withIdentifier(3);
+                .withName(R.string.drawer_item_edit_profile)
+                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
+                .withIdentifier(2);
+
     }
 
     private void buildDrawer(){
         drawer = new DrawerBuilder()
                 .withActivity(this)
+                .withTranslucentStatusBar(true)
                 .withToolbar(toolbar)
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
                         item1,
-                        new DividerDrawerItem(),
                         item2,
-                        item3
+                        new DividerDrawerItem(),
+                        item3,
+                        item4
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
