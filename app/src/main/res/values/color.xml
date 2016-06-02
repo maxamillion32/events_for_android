@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
-        <color name="ColorPrimary">#FF5722</color>
-        <color name="ColorPrimaryDark">#E64A19</color>
+        <color name="ColorPrimary">#2196F3</color>
+        <color name="ColorPrimaryDark">#1976D2</color>
+        <color name="ColorAccent">#EC407A</color>
         <color name="ActionmenuTextColor">#FFF</color>
-        <color name="FloatingActionButtonColor">#673AB7</color>
         <color name="white">#FFF</color>
 
 </resources>

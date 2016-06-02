@@ -63,7 +63,7 @@
                 android:layout_below="@+id/event_description"
                 android:layout_marginLeft="-20dp"
                 android:text="SHARE"
-                android:textColor="#03A9F4"
+                android:textColor="@color/ColorAccent"
                 style="?android:attr/borderlessButtonStyle"
                 android:background="?selectableItemBackgroundBorderless"
                 />
@@ -77,7 +77,7 @@
                 android:backgroundTint="#fff"
                 android:paddingLeft="10dp"
                 android:text="LEARN MORE"
-                android:textColor="#03A9F4"
+                android:textColor="@color/ColorAccent"
                 android:background="?selectableItemBackgroundBorderless"/>
 
         </RelativeLayout>
