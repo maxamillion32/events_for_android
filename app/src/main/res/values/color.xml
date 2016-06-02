@@ -4,4 +4,6 @@
         <color name="ColorPrimaryDark">#E64A19</color>
         <color name="ActionmenuTextColor">#FFF</color>
         <color name="FloatingActionButtonColor">#673AB7</color>
-    </resources>
+        <color name="white">#FFF</color>
+
+</resources>
