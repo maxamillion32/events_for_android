@@ -1,13 +1,4 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" tools:context="com.watsonlogic.eventsapp.LocateFragment">
-
-    <!--<TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_locate_fragment" />
-
-    <com.google.android.maps.MapView
+<!--    <com.google.android.maps.MapView
         android:id="@+id/map_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -17,8 +8,5 @@
     <com.google.android.gms.maps.MapView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="fill_parent"
         android:id="@+id/map_view" />
-
-
-</FrameLayout>
