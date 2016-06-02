@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
 
+    private CoordinatorLayout.LayoutParams restoreAppbarLayout;
 
     private Drawer drawer;
     private FloatingActionButton fab;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setToolbar(){
         appBarLayout = (AppBarLayout)findViewById(R.id.appbar_layout);
+        restoreAppbarLayout = (CoordinatorLayout.LayoutParams)appBarLayout.getLayoutParams();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -174,32 +176,26 @@ public class MainActivity extends AppCompatActivity {
                         switch (position) {
                             case 1:
                                 f = new BrowseFragment();
-                                appBarLayout.setExpanded(true, true);
-                                collapsingToolbarLayout.setTitle("Latest Events");
+                                restoreAppbarLayout();
+                                setToolbarTitle(COLLAPSING_TOOL_BAR, "Latest Events");
                                 setInvisibleAddPhotoFab();
                                 break;
                             case 2:
                                 f = new LocateFragment();
-
-
-                                lockAppbarClosed();
-                                collapsingToolbarLayout.setTitle("All Recent");
-
+                                compressAndLockAppbarLayout();
+                                setToolbarTitle(TOOL_BAR, "Locate Events");
                                 setInvisibleAddPhotoFab();
-
                                 break;
                             case 4:
                                 f = new SubmitFragment();
-                                appBarLayout.setExpanded(true, true);
-                                collapsingToolbarLayout.setTitle("Submit an Event");
+                                restoreAppbarLayout();
+                                setToolbarTitle(COLLAPSING_TOOL_BAR, "Submit an Event");
                                 setVisibleAddPhotoFab();
-                                //programmatically add floating fab
-                                //startActivity(new Intent(MainActivity.this, SubmitActivity.class));
                                 break;
                             case 5:
                                 f = new EditFragment();
-                                appBarLayout.setExpanded(true, true);
-                                collapsingToolbarLayout.setTitle("Edit My Profile");
+                                restoreAppbarLayout();
+                                setToolbarTitle(COLLAPSING_TOOL_BAR, "Edit My Profile");
                                 setVisibleAddPhotoFab();
                                 break;
                         }
@@ -214,32 +210,40 @@ public class MainActivity extends AppCompatActivity {
         loadBackdrop();
     }
 
-    private void lockAppbarClosed(){
-        //collapsingToolbarLayout.setTitle("Locate Events");
-        //boolean e = collapsingToolbarLayout.isTitleEnabled();
-        collapsingToolbarLayout.setTitle("All Recent");
+    private static final int COLLAPSING_TOOL_BAR = 0;
+    private static final int TOOL_BAR = 1;
 
 
-        collapsingToolbarLayout.setTitleEnabled(false);
+    private void setToolbarTitle(int bar, String title){
+        switch(bar){
+            case COLLAPSING_TOOL_BAR: {
+                collapsingToolbarLayout.setTitleEnabled(true);
+                collapsingToolbarLayout.setTitle(title);
+                break;
+            } case TOOL_BAR: {
+                if (collapsingToolbarLayout.isTitleEnabled()) {
+                    collapsingToolbarLayout.setTitleEnabled(false);
+                }
+                toolbar.setTitle(title);
+            }
+        }
+    }
 
-        appBarLayout.setExpanded(false, true);
+    private void expandAppbarLayout(boolean b){
+        appBarLayout.setExpanded(b, true);
+    }
 
-        //convert dp to px
-        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
+    private void compressAndLockAppbarLayout(){
+        expandAppbarLayout(false);
+        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics()); //dp->px
+        CoordinatorLayout.LayoutParams tmp = new CoordinatorLayout.LayoutParams(restoreAppbarLayout); //copy constructor
+        tmp.height = px;
+        appBarLayout.setLayoutParams(tmp);
+    }
 
-        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams)appBarLayout.getLayoutParams();
-        lp.height = px;
-        appBarLayout.setLayoutParams(lp);
-
-        //final AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams)collapsingToolbarLayout.getLayoutParams();
-        //params.setScrollFlags(0);
-        //params.height = px;
-        //collapsingToolbarLayout.setLayoutParams(params);
-
-        //collapsingToolbarLayout.setActivated(false);
-        collapsingToolbarLayout.setTitle("All Recent");
-        toolbar.setTitle("All Recent");
-
+    private void restoreAppbarLayout(){
+        appBarLayout.setLayoutParams(restoreAppbarLayout);
+        expandAppbarLayout(true);
     }
 
     private void loadBackdrop() {
