@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -58,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private SecondaryDrawerItem item3;
     private SecondaryDrawerItem item4;
 
-
-
     private long item1Id;
     private long item2Id;
     private long item3Id;
@@ -68,32 +67,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setWidgets();
-
     }
 
     private void setWidgets(){
-
         setFab();
         setToolbar();
         setDrawer();
     }
 
     private void setToolbar(){
-
         appBarLayout = (AppBarLayout)findViewById(R.id.appbar_layout);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        //collapsingToolbarLayout.setTitle(getString(R.string.drawer_item_collapsing_toolbar_drawer));
         collapsingToolbarLayout.setTitle("Latest Events");
-
     }
 
     private void setDrawer(){
@@ -133,13 +124,11 @@ public class MainActivity extends AppCompatActivity {
                 .withBadge("19")
                 .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700))
                 .withIdentifier(0);
-        //Log.d(TAG, String.valueOf(item1.getIdentifier()));
 
         item2 = (SecondaryDrawerItem) new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_locate_events)
                 .withIcon(GoogleMaterial.Icon.gmd_my_location)
                 .withIdentifier(1);
-        //Log.d(TAG, String.valueOf(item2.getIdentifier()));
 
         item3 = (SecondaryDrawerItem) new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_submit_event)
@@ -150,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
                 .withName(R.string.drawer_item_edit_profile)
                 .withIcon(GoogleMaterial.Icon.gmd_account_circle)
                 .withIdentifier(3);
-
     }
 
     private void buildDrawer(){
@@ -161,17 +149,17 @@ public class MainActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
-                        item1,
-                        item2,
-                        new DividerDrawerItem(),
-                        item3,
-                        item4
+                    item1,
+                    item2,
+                    new DividerDrawerItem(),
+                    item3,
+                    item4
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        FragmentManager m = getSupportFragmentManager();
-                        FragmentTransaction t = m.beginTransaction();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         Fragment f = new Fragment();
                         switch (position) {
                             case 1:
@@ -182,7 +170,11 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case 2:
                                 f = new LocateFragment();
-                                appBarLayout.setExpanded(false,true);
+                                appBarLayout.setExpanded(false, true);
+                                //AppBarLayout.LayoutParams p = (AppBarLayout.LayoutParams)collapsingToolbarLayout.getLayoutParams();
+                                //p.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP);
+                                //collapsingToolbarLayout.setLayoutParams(p);
+                                toolbar.setCollapsible(false);
                                 collapsingToolbarLayout.setTitle("Locate Events");
 
                                 setInvisibleAddPhotoFab();
@@ -202,8 +194,8 @@ public class MainActivity extends AppCompatActivity {
                                 setVisibleAddPhotoFab();
                                 break;
                         }
-                        t.replace(R.id.frame_fragments, f);
-                        t.commit();
+                        fragmentTransaction.replace(R.id.frame_fragments, f);
+                        fragmentTransaction.commit();
                         return false; //close drawer onclick
                     }
                 })
