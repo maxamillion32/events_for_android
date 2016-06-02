@@ -22,10 +22,6 @@
             android:name=".SubmitActivity"
             android:label="@string/title_activity_submit" >
         </activity>
-        <activity
-            android:name=".BrowseActivity"
-            android:label="@string/title_activity_browse" >
-        </activity>
     </application>
 
 </manifest>

@@ -177,16 +177,20 @@ public class MainActivity extends AppCompatActivity {
                             case 1:
                                 f = new BrowseFragment();
                                 appBarLayout.setExpanded(true,true);
+                                collapsingToolbarLayout.setTitle("Latest Events");
                                 setInvisibleAddPhotoFab();
                                 break;
                             case 2:
                                 f = new LocateFragment();
                                 appBarLayout.setExpanded(false,true);
+                                collapsingToolbarLayout.setTitle("Locate Events");
+
                                 setInvisibleAddPhotoFab();
                                 break;
                             case 4:
                                 f = new SubmitFragment();
                                 appBarLayout.setExpanded(true,true);
+                                collapsingToolbarLayout.setTitle("Submit an Event");
                                 setVisibleAddPhotoFab();
                                 //programmatically add floating fab
                                 //startActivity(new Intent(MainActivity.this, SubmitActivity.class));
@@ -194,7 +198,8 @@ public class MainActivity extends AppCompatActivity {
                             case 5:
                                 f = new EditFragment();
                                 appBarLayout.setExpanded(true,true);
-                                setInvisibleAddPhotoFab();
+                                collapsingToolbarLayout.setTitle("Edit My Profile");
+                                setVisibleAddPhotoFab();
                                 break;
                         }
                         t.replace(R.id.frame_fragments, f);
@@ -209,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadBackdrop() {
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load("https://unsplash.it/600/300/?random").centerCrop().into(imageView);
+        Glide.with(this).load("http://www.noordschok.nl/wp-content/uploads/2014/12/festival-2.jpg").centerCrop().into(imageView);
     }
 
     private void setSelectedDrawerItem(){
