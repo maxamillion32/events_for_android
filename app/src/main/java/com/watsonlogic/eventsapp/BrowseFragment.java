@@ -1,6 +1,5 @@
 package com.watsonlogic.eventsapp;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,10 +20,10 @@ public class BrowseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ImageView imageView = (ImageView)getActivity().findViewById(R.id.event_banner);
+        ImageView imageView = (ImageView) getActivity().findViewById(R.id.event_banner);
         Glide.with(this)
-            .load("http://m.c.lnkd.licdn.com/mpr/mpr/AAEAAQAAAAAAAARQAAAAJDc2OWViMmI3LWJiOGEtNDAwMi1hNTFjLTY1M2UyMDg1Y2ZhNw.jpg")
-            .centerCrop()
-            .into(imageView);
+                .load("http://m.c.lnkd.licdn.com/mpr/mpr/AAEAAQAAAAAAAARQAAAAJDc2OWViMmI3LWJiOGEtNDAwMi1hNTFjLTY1M2UyMDg1Y2ZhNw.jpg")
+                .centerCrop()
+                .into(imageView);
     }
 }

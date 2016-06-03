@@ -26,5 +26,6 @@
         <item name="android:textColor">@color/ActionmenuTextColor</item>
     </style>
 
-
+    <style name="SubmitAppBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    </style>
 </resources>

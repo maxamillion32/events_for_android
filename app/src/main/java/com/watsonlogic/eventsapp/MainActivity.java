@@ -1,40 +1,26 @@
 package com.watsonlogic.eventsapp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.annotation.NonNull;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.CoordinatorLayout.LayoutParams;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -47,11 +33,15 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-import static com.watsonlogic.eventsapp.R.id.appbar;
-import static java.security.AccessController.getContext;
-
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+
+    private static final int COLLAPSING_TOOL_BAR = 0;
+    private static final int TOOL_BAR = 1;
+    private static final int RESTORE_APPBAR_LAYOUT = 2;
+    private static final int COMPRESS_APPBAR_LAYOUT = 3;
+    private static final int SET_ADDPHOTOFAB_INVISIBLE = 4;
+    private static final int SET_ADDPHOTOFAB_VISIBLE = 5;
 
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -68,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private SecondaryDrawerItem item2;
     private SecondaryDrawerItem item3;
     private SecondaryDrawerItem item4;
+    private SecondaryDrawerItem item5;
 
     private long item1Id;
     private long item2Id;
@@ -80,15 +71,15 @@ public class MainActivity extends AppCompatActivity {
         setWidgets();
     }
 
-    private void setWidgets(){
+    private void setWidgets() {
         setFab();
         setToolbar();
         setDrawer();
     }
 
-    private void setToolbar(){
-        appBarLayout = (AppBarLayout)findViewById(R.id.appbar_layout);
-        restoreAppbarLayout = (CoordinatorLayout.LayoutParams)appBarLayout.getLayoutParams();
+    private void setToolbar() {
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar_layout);
+        restoreAppbarLayout = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -99,37 +90,37 @@ public class MainActivity extends AppCompatActivity {
         collapsingToolbarLayout.setTitle("Latest Events");
     }
 
-    private void setDrawer(){
+    private void setDrawer() {
         setAccountHeader();
         setDrawerItems();
         buildDrawer();
         setSelectedDrawerItem();
     }
 
-    private void setFab(){
-        fab = (FloatingActionButton)findViewById(R.id.floating_action_button);
+    private void setFab() {
+        fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
     }
 
-    private void setAccountHeader(){
+    private void setAccountHeader() {
         accountHeader = new AccountHeaderBuilder()
-            .withActivity(this)
-            .withHeaderBackground(R.drawable.tempbackground)
-            .addProfiles(
-                    new ProfileDrawerItem()
-                            .withName("John Doe")
-                            .withEmail("johndoe@gmail.com")
-                            .withIcon(ContextCompat.getDrawable(this, R.drawable.profile))
-            )
-            .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                @Override
-                public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                    return false;
-                }
-            })
-            .build();
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.tempbackground)
+                .addProfiles(
+                        new ProfileDrawerItem()
+                                .withName("John Doe")
+                                .withEmail("johndoe@gmail.com")
+                                .withIcon(ContextCompat.getDrawable(this, R.drawable.profile))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
     }
 
-    private void setDrawerItems(){
+    private void setDrawerItems() {
         item1 = new PrimaryDrawerItem()
                 .withName(R.string.drawer_item_browse_events)
                 .withIcon(GoogleMaterial.Icon.gmd_event)
@@ -148,12 +139,17 @@ public class MainActivity extends AppCompatActivity {
                 .withIdentifier(2);
 
         item4 = (SecondaryDrawerItem) new SecondaryDrawerItem()
+                .withName(R.string.drawer_item_attending_event)
+                .withIcon(GoogleMaterial.Icon.gmd_favorite)
+                .withIdentifier(3);
+
+        item5 = (SecondaryDrawerItem) new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_edit_profile)
                 .withIcon(GoogleMaterial.Icon.gmd_account_circle)
-                .withIdentifier(3);
+                .withIdentifier(4);
     }
 
-    private void buildDrawer(){
+    private void buildDrawer() {
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withFullscreen(true)
@@ -165,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
                         item2,
                         new DividerDrawerItem(),
                         item3,
-                        item4
+                        item4,
+                        item5
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -176,27 +173,25 @@ public class MainActivity extends AppCompatActivity {
                         switch (position) {
                             case 1:
                                 f = new BrowseFragment();
-                                restoreAppbarLayout();
-                                setToolbarTitle(COLLAPSING_TOOL_BAR, "Latest Events");
-                                setInvisibleAddPhotoFab();
+                                prepareToLoadFragment(RESTORE_APPBAR_LAYOUT, COLLAPSING_TOOL_BAR, getString(R.string.browse_events), SET_ADDPHOTOFAB_INVISIBLE);
                                 break;
                             case 2:
                                 f = new LocateFragment();
-                                compressAndLockAppbarLayout();
-                                setToolbarTitle(TOOL_BAR, "Locate Events");
-                                setInvisibleAddPhotoFab();
+                                prepareToLoadFragment(COMPRESS_APPBAR_LAYOUT, TOOL_BAR, getString(R.string.locate_events), SET_ADDPHOTOFAB_INVISIBLE);
                                 break;
                             case 4:
-                                f = new SubmitFragment();
-                                restoreAppbarLayout();
-                                setToolbarTitle(COLLAPSING_TOOL_BAR, "Submit an Event");
-                                setVisibleAddPhotoFab();
-                                break;
+                                //f = new SubmitFragment();
+                                //prepareToLoadFragment(RESTORE_APPBAR_LAYOUT, COLLAPSING_TOOL_BAR, getString(R.string.submit_event), SET_ADDPHOTOFAB_VISIBLE);
+                                startActivity(new Intent(MainActivity.this, SubmitActivity.class));
+                                return false;
+                                //break;
                             case 5:
+                                f = new AttendingFragment();
+                                prepareToLoadFragment(RESTORE_APPBAR_LAYOUT, COLLAPSING_TOOL_BAR, getString(R.string.attending_event), SET_ADDPHOTOFAB_INVISIBLE);
+                                break;
+                            case 6:
                                 f = new EditFragment();
-                                restoreAppbarLayout();
-                                setToolbarTitle(COLLAPSING_TOOL_BAR, "Edit My Profile");
-                                setVisibleAddPhotoFab();
+                                prepareToLoadFragment(RESTORE_APPBAR_LAYOUT, COLLAPSING_TOOL_BAR, getString(R.string.edit_profile), SET_ADDPHOTOFAB_VISIBLE);
                                 break;
                         }
                         fragmentTransaction.replace(R.id.frame_fragments, f);
@@ -210,17 +205,34 @@ public class MainActivity extends AppCompatActivity {
         loadBackdrop();
     }
 
-    private static final int COLLAPSING_TOOL_BAR = 0;
-    private static final int TOOL_BAR = 1;
+    private void prepareToLoadFragment(int restoreCompressAppBarLayout, int barType, String title, int addPhotoFabVisibility) {
+        switch (restoreCompressAppBarLayout) {
+            case RESTORE_APPBAR_LAYOUT:
+                restoreAppbarLayout();
+                break;
+            case COMPRESS_APPBAR_LAYOUT:
+                compressAndLockAppbarLayout();
+        }
+        setToolbarTitle(barType, title);
+        switch (addPhotoFabVisibility) {
+            case SET_ADDPHOTOFAB_INVISIBLE:
+                setInvisibleAddPhotoFab();
+                break;
+            case SET_ADDPHOTOFAB_VISIBLE:
+                setVisibleAddPhotoFab();
+        }
+
+    }
 
 
-    private void setToolbarTitle(int bar, String title){
-        switch(bar){
+    private void setToolbarTitle(int bar, String title) {
+        switch (bar) {
             case COLLAPSING_TOOL_BAR: {
                 collapsingToolbarLayout.setTitleEnabled(true);
                 collapsingToolbarLayout.setTitle(title);
                 break;
-            } case TOOL_BAR: {
+            }
+            case TOOL_BAR: {
                 if (collapsingToolbarLayout.isTitleEnabled()) {
                     collapsingToolbarLayout.setTitleEnabled(false);
                 }
@@ -229,19 +241,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void expandAppbarLayout(boolean b){
+    private void expandAppbarLayout(boolean b) {
         appBarLayout.setExpanded(b, true);
     }
 
-    private void compressAndLockAppbarLayout(){
+    private void compressAndLockAppbarLayout() {
         expandAppbarLayout(false);
-        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics()); //dp->px
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics()); //dp->px
         CoordinatorLayout.LayoutParams tmp = new CoordinatorLayout.LayoutParams(restoreAppbarLayout); //copy constructor
         tmp.height = px;
         appBarLayout.setLayoutParams(tmp);
     }
 
-    private void restoreAppbarLayout(){
+    private void restoreAppbarLayout() {
         appBarLayout.setLayoutParams(restoreAppbarLayout);
         expandAppbarLayout(true);
     }
@@ -251,18 +263,18 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load("http://www.noordschok.nl/wp-content/uploads/2014/12/festival-2.jpg").centerCrop().into(imageView);
     }
 
-    private void setSelectedDrawerItem(){
+    private void setSelectedDrawerItem() {
         drawer.setSelection(0); //sets the default selected item, which should be the first item on initial app load!
     }
 
-    private void setVisibleAddPhotoFab(){
-        if(fab.getVisibility() == View.GONE) {
+    private void setVisibleAddPhotoFab() {
+        if (fab.getVisibility() == View.GONE) {
             fab.setVisibility(View.VISIBLE);
         }
     }
 
-    private void setInvisibleAddPhotoFab(){
-        if(fab.getVisibility() != View.GONE){
+    private void setInvisibleAddPhotoFab() {
+        if (fab.getVisibility() != View.GONE) {
             fab.setVisibility(View.GONE);
         }
     }

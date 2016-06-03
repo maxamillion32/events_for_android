@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-                <item name="colorPrimary">@color/ColorPrimary</item>
-                <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
-                <item name="android:actionMenuTextColor">@color/ActionmenuTextColor</item>
-                <item name="colorAccent">@color/ColorAccent</item>
-                <item name="android:textColorLink">@color/ColorAccent</item>
-                <item name="android:colorButtonNormal">@color/ColorAccent</item>
-                <!-- Customize your theme here. -->
-        </style>
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="android:actionMenuTextColor">@color/ActionmenuTextColor</item>
+        <item name="colorAccent">@color/ColorAccent</item>
+        <item name="android:textColorLink">@color/ColorAccent</item>
+        <item name="android:colorButtonNormal">@color/ColorAccent</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="SubmitAppBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:colorPrimary">#000</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 </resources>
