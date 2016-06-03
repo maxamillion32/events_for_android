@@ -140,27 +140,23 @@ public class SubmitActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                //TODO:display alert
                 new AlertDialog.Builder(SubmitActivity.this)
-                    .setTitle("Delete entry")
-                    .setMessage("Are you sure you want to exit and lose this event")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            exitAndLoseData = true;
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            exitAndLoseData = false;
-                        }
-                    })
-                    .show();
-        }
-        if(exitAndLoseData){
-            return super.onOptionsItemSelected(item);
-        } else {
-            return false;
+                        .setTitle("Delete entry")
+                        .setMessage("Are you sure you want to exit and lose this event")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                NavUtils.navigateUpFromSameTask(SubmitActivity.this);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //no action
+                            }
+                        })
+                        .show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
