@@ -76,7 +76,7 @@ public class SubmitActivity extends AppCompatActivity {
     }
 
     private void setWidgets() {
-        setFab();
+        setFabs();
         setToolbar();
     }
 
@@ -101,8 +101,9 @@ public class SubmitActivity extends AppCompatActivity {
     }
 
 
-    private void setFab() {
-        fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+    private void setFabs() {
+        fab = (FloatingActionButton) findViewById(R.id.add_photo_fab);
+        findViewById(R.id.submit_event_fab).setVisibility(View.GONE);
     }
 
     private void expandAppbarLayout(boolean b) {
@@ -159,4 +160,5 @@ public class SubmitActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

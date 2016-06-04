@@ -180,11 +180,8 @@ public class MainActivity extends AppCompatActivity {
                                 prepareToLoadFragment(COMPRESS_APPBAR_LAYOUT, TOOL_BAR, getString(R.string.locate_events), SET_ADDPHOTOFAB_INVISIBLE);
                                 break;
                             case 4:
-                                //f = new SubmitFragment();
-                                //prepareToLoadFragment(RESTORE_APPBAR_LAYOUT, COLLAPSING_TOOL_BAR, getString(R.string.submit_event), SET_ADDPHOTOFAB_VISIBLE);
                                 startActivity(new Intent(MainActivity.this, SubmitActivity.class));
                                 return false;
-                                //break;
                             case 5:
                                 f = new AttendingFragment();
                                 prepareToLoadFragment(RESTORE_APPBAR_LAYOUT, COLLAPSING_TOOL_BAR, getString(R.string.attending_event), SET_ADDPHOTOFAB_INVISIBLE);
@@ -277,6 +274,10 @@ public class MainActivity extends AppCompatActivity {
         if (fab.getVisibility() != View.GONE) {
             fab.setVisibility(View.GONE);
         }
+    }
+
+    public void launchSubmitActivity(View v){
+        startActivity(new Intent(MainActivity.this, SubmitActivity.class));
     }
 
     @Override

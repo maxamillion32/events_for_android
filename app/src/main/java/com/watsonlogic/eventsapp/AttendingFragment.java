@@ -21,6 +21,7 @@ public class AttendingFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().findViewById(R.id.submit_event_fab).setVisibility(View.GONE);
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.event_banner);
         Glide.with(this)
                 .load("http://m.c.lnkd.licdn.com/mpr/mpr/AAEAAQAAAAAAAARQAAAAJDc2OWViMmI3LWJiOGEtNDAwMi1hNTFjLTY1M2UyMDg1Y2ZhNw.jpg")

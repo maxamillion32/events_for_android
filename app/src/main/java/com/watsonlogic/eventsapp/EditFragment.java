@@ -30,6 +30,7 @@ public class EditFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().findViewById(R.id.submit_event_fab).setVisibility(View.GONE);
         getWidgets();
     }
 
